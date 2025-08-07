@@ -1,0 +1,19 @@
+[project]
+name = "template"
+version = "0.1.0"
+description = "Template project"
+authors = [{ name = "Tim Chapman", email = "timchapman@hiaitus.ai" }]
+dependencies = []
+requires-python = ">=3.13"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.4.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+    "isort>=5.12.0",
+]

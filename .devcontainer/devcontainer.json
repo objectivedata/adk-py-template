@@ -29,7 +29,8 @@
                 "eamodio.gitlens",
                 "github.vscode-pull-request-github",
                 "ms-vscode-remote.remote-containers",
-                "tamasfe.even-better-toml"
+                "tamasfe.even-better-toml",
+                "googlecloudtools.cloudcode"
             ],
             "settings": {
                 "python.defaultInterpreterPath": "/usr/local/bin/python",

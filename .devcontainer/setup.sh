@@ -46,6 +46,22 @@ sudo apt-get install -y \
     google-cloud-cli-firestore-emulator \
     google-cloud-cli-pubsub-emulator
 
+# Create virtual environment and install google-adk
+echo "🐍 Creating virtual environment and installing google-adk..."
+# Get the workspace directory dynamically
+WORKSPACE_DIR=$(pwd | sed 's|/.devcontainer||')
+cd "$WORKSPACE_DIR"
+
+# Create virtual environment using uv
+echo "Creating virtual environment..."
+uv venv
+
+# Activate the virtual environment and install google-adk
+echo "Installing google-adk..."
+uv pip install google-adk
+
+echo "✅ Virtual environment created and google-adk installed successfully!"
+
 # Verify installations
 echo "✅ Verifying installations..."
 
@@ -65,6 +81,15 @@ fi
 # Check gcloud installation
 echo "Google Cloud CLI version:"
 gcloud version
+
+# Check google-adk installation
+echo "google-adk installation:"
+if uv pip show google-adk &> /dev/null; then
+    echo "✅ google-adk is installed"
+    uv pip show google-adk | grep Version
+else
+    echo "❌ google-adk is not installed"
+fi
 
 # Set up some useful aliases
 echo "🔧 Setting up aliases..."
@@ -106,7 +131,7 @@ EOF
 
 # Create a sample requirements file
 echo "📝 Creating sample files..."
-cat > /workspaces/template/requirements.txt << 'EOF'
+cat > "$WORKSPACE_DIR/requirements.txt" << 'EOF'
 # Add your Python dependencies here
 # Example:
 # requests>=2.31.0
@@ -115,7 +140,7 @@ cat > /workspaces/template/requirements.txt << 'EOF'
 EOF
 
 # Create a sample pyproject.toml for uv
-cat > /workspaces/template/pyproject.toml << 'EOF'
+cat > "$WORKSPACE_DIR/pyproject.toml" << 'EOF'
 [project]
 name = "template"
 version = "0.1.0"
@@ -140,7 +165,7 @@ dev-dependencies = [
 EOF
 
 # Create a sample .gitignore
-cat > /workspaces/template/.gitignore << 'EOF'
+cat > "$WORKSPACE_DIR/.gitignore" << 'EOF'
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -282,11 +307,14 @@ service-account-key.json
 Thumbs.db
 EOF
 
+
+
 echo "🎉 Post-create setup completed successfully!"
 echo ""
 echo "📚 Quick start guide:"
-echo "  - Use 'uv init' to initialize a new Python project"
-echo "  - Use 'uv add <package>' to add dependencies"
+echo "  - Virtual environment is already created in .venv/"
+echo "  - Use 'source .venv/bin/activate' to activate the virtual environment"
+echo "  - Use 'uv pip install <package>' to add more dependencies"
 echo "  - Use 'uv run <command>' to run commands in the virtual environment"
 echo "  - Use 'gcloud auth login' to authenticate with Google Cloud"
 echo "  - Use 'gcloud config set project <PROJECT_ID>' to set your default project"
@@ -294,5 +322,7 @@ echo ""
 echo "🔧 Tools installed:"
 echo "  - Python $(python3 --version)"
 echo "  - uv (Python package manager)"
+echo "  - Virtual environment (.venv/)"
+echo "  - google-adk Python package"
 echo "  - Google Cloud CLI with ADK components"
 echo "  - Git and common development tools"

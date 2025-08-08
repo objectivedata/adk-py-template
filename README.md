@@ -84,19 +84,23 @@ gcloud config list
 ### Python Development
 
 The container comes with Python 3.13 and common development tools pre-configured:
+
 - Automatic code formatting with Black
 - Linting with Flake8 and Ruff
 - Import sorting with isort
 - Type checking with Pylance
 
 ## Port Forwarding
+
 The following ports are automatically forwarded:
+
 - `8000` - Common for FastAPI/Django development servers
 - `8080` - Alternative web server port
 - `5000` - Common for Flask applications
 
 ## File Structure
-```
+
+```bash
 .devcontainer/
 ├── devcontainer.json    # Main container configuration
 └── setup.sh           # Post-creation setup script
@@ -105,30 +109,39 @@ The following ports are automatically forwarded:
 ## Customization
 
 ### Adding More Extensions
+
 Edit `.devcontainer/devcontainer.json` and add extension IDs to the `extensions` array.
 
 ### Installing Additional Tools
+
 Modify `.devcontainer/setup.sh` to include additional package installations.
 
 ### Changing Python Version
+
 Update the `image` field in `devcontainer.json` to use a different Python version tag.
 
 ## Troubleshooting
 
 ### Setup Script Issues
+
 If the setup script fails, you can run it manually:
+
 ```bash
 bash .devcontainer/setup.sh
 ```
 
 ### Missing Tools
+
 If tools like `uv` are not in PATH, restart your terminal or run:
+
 ```bash
 source ~/.bashrc  # or source ~/.zshrc
 ```
 
 ### Google Cloud Authentication
+
 For Google Cloud services, you may need to authenticate:
+
 ```bash
 gcloud auth login
 gcloud auth application-default login
